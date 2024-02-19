@@ -31,3 +31,4 @@ done
 
 end=`date +%s`
 echo Execution time was `expr $end - $start` seconds.
+#awk -v n=8 'n==c{exit}n-c>=NF{print;c+=NF;next}{for(i=1;i<=n-c;i++)printf "%s ",$i;print x;exit}' weight$i.txt > weight.txt
