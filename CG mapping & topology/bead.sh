@@ -2,8 +2,8 @@ start=`date +%s`
 
 pairs=`pwd`
 method=smd
-for i in 1-2 2-2 2-3 2-4 3-4
-#1-1 4-4 1-3 1-4 3-3 
+for i in 3-4 
+#1-1 4-4 1-3 1-4 3-3 2-2 2-3 2-4 3-4
 do
   destination=$pairs/$i/Run/$method.auto
   source1=$pairs/$i/Run/charmm-gui/gromacs
@@ -15,15 +15,16 @@ do
   last=$(awk '$0~"ATOM"{n=NR}END{print n}' $source1/step3_input.pdb)
      #i=0
      #j=1
-  echo > bead$i.txt
+  echo > bead-mod.txt
   
   for (( line=$first; line<=$last; line+=1 ))
   do
-   resid=$(awk -v "a=$line" 'NR==a {print $5}' $source1/step3_input.pdb)
+   #resid=$(awk -v "a=$line" 'NR==a {print $5}' $source1/step3_input.pdb)
+   resid=$(awk -v "a=$line" 'NR==a {print $13}' $source1/step3_input.pdb)
    resname=$(awk -v "a=$line" 'NR==a {print $4}' $source1/step3_input.pdb)
    atom=$(awk -v "a=$line" 'NR==a {print $3}' $source1/step3_input.pdb)
    #awk '{ $0 = "'$resid'':''$resname'':''$atom' " } {print}' bead.txt > temp.txt && mv temp.txt bead.txt
-   echo -n "$resid:$resname:$atom " >> bead$i.txt	
+   echo -n "$resid:$resname:$atom " >> bead-mod.txt	
 	
   done
 	 
