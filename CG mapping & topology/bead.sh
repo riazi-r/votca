@@ -15,7 +15,7 @@ do
   last=$(awk '$0~"ATOM"{n=NR}END{print n}' $source1/step3_input.pdb)
      #i=0
      #j=1
-  echo > bead-mod.txt
+  echo > bead$i.txt
   
   for (( line=$first; line<=$last; line+=1 ))
   do
@@ -24,7 +24,7 @@ do
    resname=$(awk -v "a=$line" 'NR==a {print $4}' $source1/step3_input.pdb)
    atom=$(awk -v "a=$line" 'NR==a {print $3}' $source1/step3_input.pdb)
    #awk '{ $0 = "'$resid'':''$resname'':''$atom' " } {print}' bead.txt > temp.txt && mv temp.txt bead.txt
-   echo -n "$resid:$resname:$atom " >> bead-mod.txt	
+   echo -n "$resid:$resname:$atom " >> bead$i.txt	
 	
   done
 	 
