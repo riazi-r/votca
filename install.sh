@@ -1,13 +1,8 @@
-wget https://ftp.gromacs.org/gromacs/gromacs-2024.tar.gz
-tar xfz gromacs-2024.tar.gz &&
-cd gromacs-2024
-mkdir build
-cd build
-cmake .. -DGMX_BUILD_OWN_FFTW=ON -DREGRESSIONTEST_DOWNLOAD=ON -DCMAKE_INSTALL_PREFIX=/home/riazi/apps/gromacs2024 -DCMAKE_BUILD_TYPE=Debug -DGMX_GPU=CUDA -DGMXAPI=ON &&
-make -j 8 && 
-make check &&
-sudo make install &&
-source /home/riazi/apps/gromacs2024/bin/GMXRC
+cmake -B builddir -S votca  -DCMAKE_INSTALL_PREFIX=${prefix} -DINSTALL_CSGAPPS=ON -DBUILD_OWN_GROMACS=ON -DGMX_EXTRA_CMAKE_ARGS="-DGMX_CUDA_TARGET_SM=90" -DENABLE_REGRESSION_TESTING=ON
 
-#-DGMX_CUDA_TARGET_SM=90
-#-DBUILD_SHARED_LIBS=ON
+-DGROMACS_INCLUDE_DIR=/usr/local/gromacs2019.6/include -DGROMACS_LIBRARY=/usr/local/gromacs2019.6/lib/libgromacs.so -DGROMACS_EXECUTABLE=/usr/local/gromacs2019.6/bin/gmx
+
+-DBUILD_OWN_GROMACS=ON
+-DBUILD_XTP=ON
+-DBUILD_OWN_LIBINT=ON
+-DUSE_CUDA=ON
